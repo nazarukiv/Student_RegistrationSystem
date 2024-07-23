@@ -1,13 +1,48 @@
+# Byte-compiled files
 __pycache__/
 *.py[cod]
-*$py.class
 
-# pipenv
-.env
-.venv
+
+# Virtual environment
+venv/
 .env/
 
-# Pycharm IDE
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# PyCharm
 .idea/
 
+# VS Code
+.vscode/
 
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log
+
+# Coverage reports
+.coverage
+*.cover
+coverage.xml
+*.py,cover
+
+# MySQL
+*.sql
+
+# Environment variables
+.env
+*.env
+
+# Miscellaneous
+*.bak
+*.tmp
+*.swp
+*.swo
+
+# Project specific
+*.sqlite3
