@@ -32,6 +32,109 @@ if not file_path.exists():
     workbook.save(file_path)
 
 
+
+########################Search#####################
+def search():
+
+    text = Search.get() #taking input from entry box
+
+    Clear() #to clear all the data already available in entry box
+    save_button.config(state="disable") #after clicking on search, save button will disable so that no one can click on it
+
+    file = openpyxl.load_workbook("Student_data.xlsx")
+    sheet = file.active
+
+    for row in sheet.rows:
+        if row[0].value == int(text):
+            name = row[0]
+            ## print(str(name))
+            reg_no_position = str(name)[14:-1]
+            reg_number=str(name)[15:-1]
+
+            # print(reg_no_position)
+            # print(reg_number)
+
+    try:
+        print(str(name))
+    except:
+        messagebox.showerror("Invalid", "Invalid registration number!!!")
+
+    #reg_no_position showing like A2, A3, A4 ...
+    #but reg_number just showing number after A2 like 2, 3 ...
+
+    x1=sheet.cell(row=int(reg_number), column=1).value
+    x2 = sheet.cell(row=int(reg_number), column=2).value
+    x3 = sheet.cell(row=int(reg_number), column=3).value
+    x4 = sheet.cell(row=int(reg_number), column=4).value
+    x5 = sheet.cell(row=int(reg_number), column=5).value
+    x6 = sheet.cell(row=int(reg_number), column=6).value
+    x7 = sheet.cell(row=int(reg_number), column=7).value
+    x8 = sheet.cell(row=int(reg_number), column=8).value
+    x9 = sheet.cell(row=int(reg_number), column=9).value
+    x10 = sheet.cell(row=int(reg_number), column=10).value
+    x11 = sheet.cell(row=int(reg_number), column=11).value
+    x12 = sheet.cell(row=int(reg_number), column=12).value
+
+    # print(x1)
+    # print(x2)
+    # print(x3)
+    # print(x4)
+    # print(x5)
+    # print(x6)
+    # print(x7)
+    # print(x8)
+    # print(x9)
+    # print(x10)
+    # print(x11)
+    # print(x2)
+
+    Registration.set(x1)
+    Name.set(x2)
+    Class.set(x3)
+
+    if x4=="Female":
+        R2.select()
+    else:
+        R1.select()
+
+    DOB.set(x5)
+    Date.set(x6)
+    Religion.set(x7)
+    Skill.set(x8)
+    F_Name.set(x9)
+    M_Name.set(x10)
+    Father_Occupation.set(x11)
+    Mother_Occupation.set(x12)
+
+    img1 = (Image.open("media/"+str(x1)+".jpg")) #show images in media file, as their reg_number
+    resized_image1=img1.resize((190, 190))
+    photo2 = ImageTk.PhotoImage(resized_image1)
+    lbl.config(image=photo2)
+    lbl.image=photo2
+
+
+######################Update#######################
+def Update():
+    # print("works")
+    R1 = Registration.get()
+    N1 = Name.get()
+    C1 = Class.get()
+    selection()
+    G1 = gender
+    D2 = DOB.get()
+    D1 = Date.get()
+    Re1 = Religion.get()
+    S1 = Skill.get()
+    fathername = F_Name.get()
+    mothername = M_Name.get()
+    F1 = Father_Occupation.get()
+    M1 = Mother_Occupation.get()
+
+
+
+
+
+
 # Gender
 def selection():
     global gender
@@ -169,7 +272,7 @@ original_image = Image.open("/Users/ivan/Desktop/coding/programming/petprojects/
 resized_image = original_image.resize((20, 20))
 imageicon3 = ImageTk.PhotoImage(resized_image)
 
-Srch = Button(root, text="Search", compound=LEFT, image=imageicon3, width=100, height=30, bg="#ADD8E6", font="arial 13 bold")
+Srch = Button(root, text="Search", compound=LEFT, image=imageicon3, width=100, height=30, bg="#ADD8E6", font="arial 13 bold", command=search)
 Srch.place(x=1060, y=65)
 
 # Update button
@@ -177,7 +280,7 @@ original_image2 = Image.open("/Users/ivan/Desktop/coding/programming/petprojects
 resized_image = original_image2.resize((40, 40))
 imageicon4 = ImageTk.PhotoImage(resized_image)
 
-Update_button = Button(root, image=imageicon4, bg="#c36464", borderwidth=0)
+Update_button = Button(root, image=imageicon4, bg="#c36464", borderwidth=0, command=Update)
 Update_button.place(x=110, y=60)
 
 # Registration and Date
@@ -203,13 +306,13 @@ Date.set(d1)
 obj = LabelFrame(root, text="Student's Details", font=20, bd=2, width=900, bg=BACKGROUND_COLOR, fg='white', height=250, relief=GROOVE)
 obj.place(x=30, y=200)
 
-Label(root, text='Full Name:', font='arial 13', bg=FRAME_BG_COLOR, fg=BACKGROUND_COLOR).place(x=40, y=250)
-Label(root, text='Date of Birth:', font='arial 13', bg=FRAME_BG_COLOR, fg=BACKGROUND_COLOR).place(x=40, y=300)
-Label(root, text='Gender:', font='arial 13', bg=FRAME_BG_COLOR, fg=BACKGROUND_COLOR).place(x=40, y=350)
+Label(root, text='Full Name:', font='arial 13', bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR).place(x=40, y=250)
+Label(root, text='Date of Birth:', font='arial 13', bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR).place(x=40, y=300)
+Label(root, text='Gender:', font='arial 13', bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR).place(x=40, y=350)
 
-Label(root, text='Class:', font='arial 13', bg=FRAME_BG_COLOR, fg=BACKGROUND_COLOR).place(x=500, y=250)
-Label(root, text='Religion:', font='arial 13', bg=FRAME_BG_COLOR, fg=BACKGROUND_COLOR).place(x=500, y=300)
-Label(root, text='Skill:', font='arial 13', bg=FRAME_BG_COLOR, fg=BACKGROUND_COLOR).place(x=500, y=350)
+Label(root, text='Class:', font='arial 13', bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR).place(x=500, y=250)
+Label(root, text='Religion:', font='arial 13', bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR).place(x=500, y=300)
+Label(root, text='Skill:', font='arial 13', bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR).place(x=500, y=350)
 
 Name = StringVar()
 name_entry = Entry(obj, textvariable=Name, width=20, font='arial 10')
@@ -220,10 +323,10 @@ dob_entry = Entry(obj, textvariable=DOB, width=20, font='arial 10')
 dob_entry.place(x=160, y=80)
 
 radio = IntVar()
-R1 = Radiobutton(obj, text="Male", variable=radio, value=1, bg="white", fg=BACKGROUND_COLOR, command=selection)
+R1 = Radiobutton(obj, text="Male", variable=radio, value=1, bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR, command=selection)
 R1.place(x=150, y=133)
 
-R2 = Radiobutton(obj, text="Female", variable=radio, value=2, bg="white", fg=BACKGROUND_COLOR, command=selection)
+R2 = Radiobutton(obj, text="Female", variable=radio, value=2, bg=BACKGROUND_COLOR, fg=FRAME_BG_COLOR, command=selection)
 R2.place(x=230, y=133)
 
 Religion = StringVar()
