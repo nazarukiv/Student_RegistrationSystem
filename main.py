@@ -131,6 +131,45 @@ def Update():
     M1 = Mother_Occupation.get()
 
 
+    file = openpyxl.load_workbook("Student_data.xlsx")
+    sheet = file.active
+
+    for row in sheet.rows:
+        if row[0].value == R1:
+            name=row[0]
+            #print(str(name))
+            reg_no_position = str(name)[14: -1]
+            reg_number = str(name)[15:-1]
+            #print(reg_number)
+
+    #sheet.cell(column=1, row=int(reg_number), value=R1)  no one can update it
+    sheet.cell(column=2, row=int(reg_number), value=N1)
+    sheet.cell(column=3, row=int(reg_number), value=C1)
+    sheet.cell(column=4, row=int(reg_number), value=G1)
+    sheet.cell(column=5, row=int(reg_number), value=D2)
+    sheet.cell(column=6, row=int(reg_number), value=D1)
+    sheet.cell(column=7, row=int(reg_number), value=Re1)
+    sheet.cell(column=8, row=int(reg_number), value=S1)
+    sheet.cell(column=9, row=int(reg_number), value=fathername)
+    sheet.cell(column=10, row=int(reg_number), value=mothername)
+    sheet.cell(column=11, row=int(reg_number), value=F1)
+    sheet.cell(column=12 , row=int(reg_number), value=M1)
+
+    file.save(r"Student_data.xlsx")
+
+    try:
+        img.save("media/"+str(R1)+".jpg")
+    except:
+        pass
+
+    messagebox.showinfo("Update", "Update Successfully!")
+
+    Clear()
+
+
+
+
+
 
 
 
